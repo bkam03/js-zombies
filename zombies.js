@@ -29,7 +29,8 @@ function Item (name){
 function Weapon (name, damage){
   this.damage = damage;
 
-  Item.call(this, name);
+Item.call(this, name);
+
 }
 
 /**
@@ -41,6 +42,7 @@ Weapon.prototype = Object.create(Item.prototype, {
   constructor : Weapon
 });
 
+console.log(Weapon instanceof Item);
 
 /**
  * Class => Food(name, energy)
@@ -58,12 +60,20 @@ Weapon.prototype = Object.create(Item.prototype, {
  * @property {number} energy
  */
 
+function Food (name, energy){
+  this.energy = energy;
+
+  Item.call(this, name);
+}
 
 /**
  * Food Extends Item Class
  * -----------------------------
  */
 
+Food.prototype = Object.create ( Item.prototype, {
+  constructor : Food
+} );
 
 
 /**
