@@ -42,8 +42,6 @@ Weapon.prototype = Object.create(Item.prototype, {
   constructor : Weapon
 });
 
-console.log(Weapon instanceof Item);
-
 /**
  * Class => Food(name, energy)
  * -----------------------------
@@ -108,14 +106,15 @@ function Player (name, health, strength, speed){
   this.isAlive = true;
   this.equipped = false;
 
-  this.getPack = function (){
+}
+
+Player.prototype.getPack = function (){
     return this._pack;
   };
 
-  this.getMaxHealth = function (){
+Player.prototype.getMaxHealth = function (){
     return this._maxHealth;
   };
-}
 
 /**
  * Player Class Method => checkPack()
@@ -129,6 +128,10 @@ function Player (name, health, strength, speed){
  * @name checkPack
  */
 
+Player.prototype.checkPack = function (){
+  var pack = this.getPack();
+  console.log(pack);
+};
 
 /**
  * Player Class Method => takeItem(item)
