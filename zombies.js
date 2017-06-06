@@ -375,6 +375,15 @@ function Zombie ( health, strength, speed ){
  * @param {number} speed            The zombie's speed.
  */
 
+function FastZombie ( health, strength, speed ){
+
+  Zombie.call( this, health, strength, speed );
+}
+
+FastZombie.prototype = Object.create( Zombie.prototype, {
+  constructor: FastZombie
+} );
+
 
 /**
  * FastZombie Extends Zombie Class
