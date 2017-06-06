@@ -7,7 +7,7 @@
  * @param {string} name     The item's name.
  * @property {string} name
  */
-function Item (name){
+function Item ( name ){
   this.name = name;
 }
 
@@ -26,10 +26,10 @@ function Item (name){
  * @param {number} damage   The weapon's damage.
  * @property {number} damage
  */
-function Weapon (name, damage){
+function Weapon ( name, damage ){
   this.damage = damage;
 
-Item.call(this, name);
+Item.call( this, name );
 
 }
 
@@ -38,9 +38,9 @@ Item.call(this, name);
  * -----------------------------
  */
 
-Weapon.prototype = Object.create(Item.prototype, {
+Weapon.prototype = Object.create ( Item.prototype, {
   constructor : Weapon
-});
+} );
 
 /**
  * Class => Food(name, energy)
@@ -58,10 +58,10 @@ Weapon.prototype = Object.create(Item.prototype, {
  * @property {number} energy
  */
 
-function Food (name, energy){
+function Food ( name, energy ){
   this.energy = energy;
 
-  Item.call(this, name);
+  Item.call( this, name );
 }
 
 /**
@@ -96,7 +96,7 @@ Food.prototype = Object.create ( Item.prototype, {
  * @property {method} getMaxHealth         Returns private variable `maxHealth`.
  */
 
-function Player (name, health, strength, speed){
+function Player ( name, health, strength, speed ){
   this._pack = [];
   this._maxHealth = health;
   this.name = name;
@@ -110,11 +110,11 @@ function Player (name, health, strength, speed){
 
 Player.prototype.getPack = function (){
     return this._pack;
-  };
+};
 
 Player.prototype.getMaxHealth = function (){
     return this._maxHealth;
-  };
+};
 
 /**
  * Player Class Method => checkPack()
@@ -130,7 +130,7 @@ Player.prototype.getMaxHealth = function (){
 
 Player.prototype.checkPack = function (){
   var pack = this.getPack();
-  console.log(pack);
+  console.log( pack );
   return pack;
 };
 
@@ -152,17 +152,17 @@ Player.prototype.checkPack = function (){
  * @return {boolean} true/false (console.log actually)    Whether player was able to store item in pack.
  */
 
-Player.prototype.takeItem = function (item){
+Player.prototype.takeItem = function ( item ){
   var isItemStored = false;
 
   if( this.getPack().length < 3 ) {
-    console.log(this.name, item);
-    this.getPack().push(item);
+    console.log( this.name, item );
+    this.getPack().push( item );
     isItemStored = true;
   } else {
-    console.log('pack is full');
+    console.log( 'pack is full' );
   }
-  console.log(isItemStored);
+  console.log( isItemStored );
 };
 
 /**
@@ -190,19 +190,19 @@ Player.prototype.takeItem = function (item){
  * @param {Item/Weapon/Food} item   The item to discard.
  * @return {boolean} true/false     Whether player was able to remove item from pack.
  */
-Player.prototype.discardItem = function (item){
+Player.prototype.discardItem = function ( item ){
   var pack = this.getPack();
-  var itemSlot = pack.indexOf(item);
+  var itemSlot = pack.indexOf( item );
   var isDiscarded = false;
 
   if ( itemSlot > -1 ){
-    pack.splice(itemSlot,1);
+    pack.splice( itemSlot,1 );
     isDiscarded = true;
 
-    console.log(this.name);
+    console.log( this.name );
     this.checkPack();
   } else {
-    console.log('item could not be found');
+    console.log( 'item could not be found' );
   }
   return isDiscarded;
 };
@@ -227,19 +227,19 @@ Player.prototype.discardItem = function (item){
  * @param {Weapon} itemToEquip  The weapon item to equip.
  */
 
-Player.prototype.equip = function (itemToEquip){
+Player.prototype.equip = function ( itemToEquip ){
   var isWeaponInPack = ( itemToEquip instanceof Weapon ) && ( this.checkPack().indexOf(itemToEquip) > -1 );
 
   if ( isWeaponInPack ){
 
-    this.discardItem(itemToEquip);
-    if( this.equipped !== false ) { //if not empty handed
-      this.takeItem(this.equipped);
+    this.discardItem( itemToEquip );
+    if ( this.equipped !== false ) { //if not empty handed
+      this.takeItem( this.equipped );
     }
     this.equipped = itemToEquip;
 
   } else {
-    console.log('can only equip weapons.');
+    console.log( 'can only equip weapons.' );
   }
 };
 
@@ -262,11 +262,11 @@ Player.prototype.equip = function (itemToEquip){
  * @param {Food} itemToEat  The food item to eat.
  */
 
-Player.prototype.eat = function (itemToEat){
-  var isFoodFromPack = this.checkPack().indexOf(itemToEat) > -1 && itemToEat instanceof Food;
+Player.prototype.eat = function ( itemToEat ){
+  var isFoodFromPack = this.checkPack().indexOf( itemToEat ) > -1 && itemToEat instanceof Food;
   var energyWithFoodConsumption = this.health + itemToEat.energy;
-  if (isFoodFromPack){
-    this.discardItem(itemToEat);
+  if ( isFoodFromPack ){
+    this.discardItem( itemToEat );
     if( this.getMaxHealth() > energyWithFoodConsumption ) {
       this.health += itemToEat.energy;
     } else {
@@ -288,16 +288,17 @@ Player.prototype.eat = function (itemToEat){
  * @param {Item/Weapon/Food} item   The item to use.
  */
 
-Player.prototype.useItem = function (item){
-  switch (true){
-    case (item instanceof Weapon):
+Player.prototype.useItem = function ( item ){
+
+  switch ( true ){
+    case ( item instanceof Weapon ):
       this.equip(item);
       break;
-    case (item instanceof Food):
+    case ( item instanceof Food ):
       this.eat(item);
       break;
     default:
-      console.log('item cannot be used');
+      console.log( 'item cannot be used' );
       break;
   }
 };
@@ -317,6 +318,23 @@ Player.prototype.useItem = function (item){
  * @return {string/boolean}   Weapon name or false if nothing is equipped.
  */
 
+Player.prototype.equippedWith = function (){
+  var equippedItemName = '';
+  if ( this.equipped ){
+    equippedItemName = this.equipped.name;
+  } else {
+    equippedItemName = false;
+  }
+  console.log ( this.name );
+
+  if ( equippedItemName ){
+    console.log( equippedItemName );
+  } else {
+    console.log('nothing is equipped');
+  }
+
+  return equippedItemName;
+};
 
 /**
  * Class => Zombie(health, strength, speed)
