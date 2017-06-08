@@ -106,8 +106,12 @@ class Player {
     this.speed = speed;
     this.isAlive = true;
     this.equipped = false;
-
   }
+
+  getPack (){
+    return this._pack;
+  }
+
 }
 
 /**
