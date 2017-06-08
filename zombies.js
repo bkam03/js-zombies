@@ -112,6 +112,10 @@ class Player {
     return this._pack;
   }
 
+  getMaxHealth (){
+    return this._maxHealth;
+  }
+
 }
 
 /**
