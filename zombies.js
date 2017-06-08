@@ -1,4 +1,4 @@
-/*jshint esversion: 6 */
+
 /**
  * Class => Item(name)
  * -----------------------------
@@ -129,6 +129,12 @@ class Player {
  *
  * @name checkPack
  */
+
+ Player.prototype.checkPack = function (){
+  var pack = this.getPack();
+  console.log( pack );
+  return pack;
+ };
 
 
 /**
