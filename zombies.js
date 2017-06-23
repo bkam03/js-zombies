@@ -29,7 +29,7 @@ function Item ( name ){
 function Weapon ( name, damage ){
   this.damage = damage;
 
-Item.call( this, name );
+  Item.call( this, name );
 
 }
 
